@@ -75,6 +75,19 @@ class Drawer(Graph):
         # Отрисовка (вызывается в конце)
         self.draw_graph()
 
+    def draw_one_line_xy(self, data_x, data_y) -> None:
+        """ Отрисовка линии.
+        :param data_x: данные x.
+        :param data_y: данные y."""
+        # Очистка, подпись графика и осей (вызывается в начале)
+        self.cleaning_and_chart_graph()
+
+        # Рисуем график
+        self.axis.plot(data_x, data_y)
+
+        # Отрисовка (вызывается в конце)
+        self.draw_graph()
+
     def draw_two_line(self, data_1, data_2) -> None:
         """ Отрисовка линии.
         :param data_x: данные x.
@@ -85,6 +98,20 @@ class Drawer(Graph):
         # Рисуем график
         self.axis.plot(data_1)
         self.axis.plot(data_2)
+
+        # Отрисовка (вызывается в конце)
+        self.draw_graph()
+
+    def draw_two_line_xyy(self, data_x, data_y1, data_y2) -> None:
+        """ Отрисовка линии.
+        :param data_x: данные x.
+        :param data_y: данные y."""
+        # Очистка, подпись графика и осей (вызывается в начале)
+        self.cleaning_and_chart_graph()
+
+        # Рисуем график
+        self.axis.plot(data_x, data_y1)
+        self.axis.plot(data_x, data_y2)
 
         # Отрисовка (вызывается в конце)
         self.draw_graph()

@@ -38,45 +38,38 @@ class GuiProgram(Ui_Dialog):
 
     def gas_data(self):
         self.gas_file = filedialog.askopenfilename()  # Открываем диалоговое окно выбора файла
-        self.lineEdit_add_gas.setText(self.gas_file)  # Записываем полученный путь к файлу в LineEdit
-        self.gas_file = self.lineEdit_add_gas.text()  # Обновляем переменную на случай если вручную ввёл путь к файлу
         return self.gas_file  # Возвращаем значение переменной
 
     def without_gas_data(self):
         self.without_gas_file = filedialog.askopenfilename()  # Открываем диалоговое окно выбора файла
-        self.lineEdit_add_without_gas.setText(self.without_gas_file)  # Записываем полученный путь к файлу в LineEdit
-        self.without_gas_file = self.lineEdit_add_without_gas.text()  # Обновляем переменную на случай если вручную ввёл путь к файлу
         return self.without_gas_file  # Возвращаем значение переменной
 
     def draw_measure(self):
+        self.open_file(self.gas_file)
+        frequency_data = self.array_x
+        gamma_with_gas_data = self.array_y
+        self.open_file(self.without_gas_file)
+        gamma_without_gas_data = self.array_y
+        self.drawer_1.draw_two_line_xyy(frequency_data, gamma_with_gas_data, gamma_without_gas_data)
+
+
+    def open_file(self, file):
         # Открываем файл с данными для первого графика
-        fle = open(self.gas_file, "r")
+        fle = open(file, "r")
         # читаем строку файла
         fle.readline()
         lne = fle.readline()  # Записываем данные из строки в переменную
         # Создаём пустой массив для дальнейшей работы с ним
-        self.array1 = []
+        self.array_x = []
+        self.array_y = []
         # Цикл работает пока не встретит "звёздочки"
         while lne[0] != '*':
             val = lne.split()
-            self.array1.append(float(val[4]))
+            self.array_x.append(float(val[1]))
+            self.array_y.append(float(val[4]))
             lne = fle.readline()
         fle.close()  # Закрываем файл
-        self.list_1 = self.array1  # Записываем данные массива в переменную
-
-        # Открываем файл с данными для второго графика
-        self.file = open(self.without_gas_file, "r")
-        self.file.readline()  # читаем строку файла
-        self.line = self.file.readline()  # Записываем данные из строки в переменную
-        # Создаём пустой массив для дальнейшей работы с ним
-        self.array2 = []
-        while self.line[0] != '*':
-            val = self.line.split()  # Делим строку по пробелам
-            self.array2.append(float(val[4]))  # Добавляем в массив четвёртый член из всех членов строки
-            self.line = self.file.readline()
-        self.file.close()  # Закрываем файл
-        self.list_2 = self.array2  # Записываем данные массива в переменную
-        self.drawer_1.draw_two_line(self.list_1, self.list_2)  # Строим два графика по полученным данным
+        return self.array_x, self.array_y
 
     def draw_difference_graph(self):
         c = []
