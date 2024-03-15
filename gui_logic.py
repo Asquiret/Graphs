@@ -1,5 +1,8 @@
 import matplotlib
+import numpy as np
 from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QFileDialog
+
 from gui import Ui_Dialog
 from drawer import Drawer as drawer
 from tkinter import filedialog
@@ -33,24 +36,26 @@ class GuiProgram(Ui_Dialog):
         self.add_without_gas.clicked.connect(self.without_gas_data)
         self.draw_two_measuring.clicked.connect(self.draw_measure)
         self.draw_difference.clicked.connect(self.draw_difference_graph)
+        self.pushButton_threshold.clicked.connect(self.threshold)
         self.array1 = []
         self.array2 = []
 
     def gas_data(self):
-        self.gas_file = filedialog.askopenfilename()  # Открываем диалоговое окно выбора файла
+        self.gas_file, _ = QFileDialog.getOpenFileName()  # Открываем диалоговое окно выбора файла
         return self.gas_file  # Возвращаем значение переменной
 
     def without_gas_data(self):
-        self.without_gas_file = filedialog.askopenfilename()  # Открываем диалоговое окно выбора файла
-        return self.without_gas_file  # Возвращаем значение переменной
+        self.without_gas_file, _ = QFileDialog.getOpenFileName()  # Открываем диалоговое окно выбора файла
+        return self.without_gas_file   # Возвращаем значение переменной
 
     def draw_measure(self):
         self.open_file(self.gas_file)
-        frequency_data = self.array_x
-        gamma_with_gas_data = self.array_y
+        self.frequency_data = self.array_x
+        self.gamma_with_gas_data = self.array_y
         self.open_file(self.without_gas_file)
-        gamma_without_gas_data = self.array_y
-        self.drawer_1.draw_two_line_xyy(frequency_data, gamma_with_gas_data, gamma_without_gas_data)
+        self.gamma_without_gas_data = self.array_y
+        self.frequency_data = self.array_x
+        self.drawer_1.draw_two_line_xyy(self.frequency_data, self.gamma_with_gas_data, self.gamma_without_gas_data)
 
 
     def open_file(self, file):
@@ -72,7 +77,13 @@ class GuiProgram(Ui_Dialog):
         return self.array_x, self.array_y
 
     def draw_difference_graph(self):
-        c = []
-        for i in range(len(self.list_1)):
-            c.append(self.list_1[i] - self.list_2[i])
-        self.drawer_2.draw_line(c)
+        self.c = []
+        for i in range(len(self.gamma_with_gas_data)):
+            self.c.append(self.gamma_with_gas_data[i] - self.gamma_without_gas_data[i])
+        self.drawer_2.draw_one_line_xy(self.frequency_data, self.c)
+        return self.c
+
+    def threshold(self):
+        percent_threshold = float(self.lineEdit_threshold.text())
+        self.value_threshold = np.max(self.c) * (percent_threshold/100)
+        self.drawer_2.draw_xy_and_line(self.frequency_data, self.c, self.value_threshold)
