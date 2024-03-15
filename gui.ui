@@ -16,9 +16,15 @@
   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0,6,0,6">
    <item>
     <widget class="QWidget" name="widget" native="true">
-     <layout class="QGridLayout" name="gridLayout">
+     <layout class="QGridLayout" name="gridLayout" columnstretch="1,2">
+      <item row="2" column="0">
+       <widget class="QLineEdit" name="lineEdit_threshold"/>
+      </item>
       <item row="0" column="1">
        <widget class="QLineEdit" name="lineEdit_add_gas"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="lineEdit_add_without_gas"/>
       </item>
       <item row="0" column="0">
        <widget class="QPushButton" name="add_gas">
@@ -27,9 +33,6 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEdit_add_without_gas"/>
-      </item>
       <item row="1" column="0">
        <widget class="QPushButton" name="add_without_gas">
         <property name="text">
@@ -37,17 +40,24 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0" colspan="2">
+      <item row="5" column="0" colspan="2">
+       <widget class="QPushButton" name="draw_difference">
+        <property name="text">
+         <string>Draw graph of difference between two graph</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="2">
        <widget class="QPushButton" name="draw_two_measuring">
         <property name="text">
          <string>Draw graphs of two measuring</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="0" colspan="2">
-       <widget class="QPushButton" name="draw_difference">
+      <item row="2" column="1">
+       <widget class="QPushButton" name="pushButton_threshold">
         <property name="text">
-         <string>Draw graph of difference between two graph</string>
+         <string>PushButton</string>
         </property>
        </widget>
       </item>
