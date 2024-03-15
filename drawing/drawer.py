@@ -115,3 +115,13 @@ class Drawer(Graph):
 
         # Отрисовка (вызывается в конце)
         self.draw_graph()
+
+    def draw_xy_and_line(self, x, y, y_line):
+        self.cleaning_and_chart_graph()
+
+        self.axis.plot(x, y)
+        x_line_array = [x[0],x[-1]]
+        y_line_array = [y_line, y_line]
+        self.axis.plot(x_line_array, y_line_array)
+
+        self.draw_graph()
