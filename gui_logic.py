@@ -43,17 +43,19 @@ class GuiProgram(Ui_Dialog):
 
     def gas_data(self):
         self.gas_file, _ = QFileDialog.getOpenFileName()  # Открываем диалоговое окно выбора файла
-        return self.gas_file  # Возвращаем значение переменной
+        self.lineEdit_add_gas.setText(self.gas_file)
+        # return self.gas_file  # Возвращаем значение переменной
 
     def without_gas_data(self):
         self.without_gas_file, _ = QFileDialog.getOpenFileName()  # Открываем диалоговое окно выбора файла
-        return self.without_gas_file  # Возвращаем значение переменной
+        self.lineEdit_add_without_gas.setText(self.without_gas_file)
+        # return self.without_gas_file  # Возвращаем значение переменной
 
     def draw_measure(self):
-        self.open_file(self.gas_file)
+        self.open_file(self.lineEdit_add_gas.text())
         self.frequency_data = self.array_x
         self.gamma_with_gas_data = self.array_y
-        self.open_file(self.without_gas_file)
+        self.open_file(self.lineEdit_add_without_gas.text())
         self.gamma_without_gas_data = self.array_y
         self.frequency_data = self.array_x
         self.drawer_1.draw_two_line_xyy(self.frequency_data, self.gamma_with_gas_data, self.gamma_without_gas_data)
@@ -105,10 +107,11 @@ class GuiProgram(Ui_Dialog):
             # Если значение выше порога, а предыдущее меньше, то выполняется функция
             if (val >= self.value_threshold) and (self.befor_value < self.value_threshold):
                 position = list(self.indexes).index(key)  # Индекс точки начала участка выше порога
-                self.make_massive(position) # Вызыв функции создающий массив точек одного участка
+                self.make_massive(position) # Вызов функции создающий массив точек одного участка
                 self.bigmassive.append(self.mass) # Добавление одного участка в массив всех участков
             self.befor_value = val
         print(self.bigmassive)
+
 
     def make_massive(self, position):
         """Функция для создания массива значений выше порога одного участка"""
@@ -120,10 +123,22 @@ class GuiProgram(Ui_Dialog):
         # Создание нового обрезанного словаря
         new_indexes = dict(zip(new_keys, new_meanings))
 
+        self.smol_gamma = []
         self.mass = []
         # Ключи словаря записываются пока Value больше порога
         for key, val in new_indexes.items():
             if val >= self.value_threshold:
                 self.mass.append(key)
+                self.smol_gamma.append(val)
             else:
+                break
+        self.max_part_point(self.mass, self.smol_gamma)
+
+    def max_part_point(self, mass, smol_gamma):
+        smol_massive = dict(zip(mass, smol_gamma))
+        max_gamma = max(smol_massive.values())
+
+        for key, val in smol_massive.items():
+            if val==max_gamma:
+                print(key)
                 break
