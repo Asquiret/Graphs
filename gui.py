@@ -14,17 +14,82 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(722, 501)
+        Dialog.resize(724, 501)
         Dialog.setStyleSheet("QPushButton:hover{\n"
 "    background-color: #666;\n"
+"}\n"
+"\n"
+"QPushButton{\n"
+"    background-color: rgb(140, 140, 140);\n"
 "}")
+        Dialog.setSizeGripEnabled(False)
         self.verticalLayout = QtWidgets.QVBoxLayout(Dialog)
         self.verticalLayout.setContentsMargins(0, -1, 0, -1)
         self.verticalLayout.setObjectName("verticalLayout")
         self.pushButton = QtWidgets.QPushButton(Dialog)
+        self.pushButton.setStyleSheet("QPushButton: {\n"
+"    color: rgb(255, 255, 255);\n"
+"    background-color: rgb(0, 0, 0);\n"
+"    \n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: #666;\n"
+"}\n"
+"")
         self.pushButton.setCheckable(True)
         self.pushButton.setObjectName("pushButton")
         self.verticalLayout.addWidget(self.pushButton)
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.widget = QtWidgets.QWidget(Dialog)
+        self.widget.setTabletTracking(False)
+        self.widget.setStyleSheet("QWidget{\n"
+"background-color: rgb(49, 49, 49);\n"
+"}\n"
+"QLineEdit{\n"
+"background-color: rgb(255, 255, 255);\n"
+"}\n"
+"QPushButton{\n"
+"background-color: rgb(121, 220, 255);\n"
+"}\n"
+"QPushButton:hover{    \n"
+"    background-color: rgb(219, 88, 255);\n"
+"}")
+        self.widget.setObjectName("widget")
+        self.gridlayout = QtWidgets.QGridLayout(self.widget)
+        self.gridlayout.setObjectName("gridlayout")
+        self.lineEdit_threshold = QtWidgets.QLineEdit(self.widget)
+        self.lineEdit_threshold.setObjectName("lineEdit_threshold")
+        self.gridlayout.addWidget(self.lineEdit_threshold, 4, 0, 1, 1)
+        self.add_without_gas = QtWidgets.QPushButton(self.widget)
+        self.add_without_gas.setObjectName("add_without_gas")
+        self.gridlayout.addWidget(self.add_without_gas, 1, 0, 1, 1)
+        self.lineEdit_add_without_gas = QtWidgets.QLineEdit(self.widget)
+        self.lineEdit_add_without_gas.setObjectName("lineEdit_add_without_gas")
+        self.gridlayout.addWidget(self.lineEdit_add_without_gas, 1, 1, 1, 1)
+        self.lineEdit_add_gas = QtWidgets.QLineEdit(self.widget)
+        self.lineEdit_add_gas.setObjectName("lineEdit_add_gas")
+        self.gridlayout.addWidget(self.lineEdit_add_gas, 0, 1, 1, 1)
+        self.add_gas = QtWidgets.QPushButton(self.widget)
+        self.add_gas.setObjectName("add_gas")
+        self.gridlayout.addWidget(self.add_gas, 0, 0, 1, 1)
+        self.pushButton_threshold = QtWidgets.QPushButton(self.widget)
+        self.pushButton_threshold.setObjectName("pushButton_threshold")
+        self.gridlayout.addWidget(self.pushButton_threshold, 4, 1, 1, 1)
+        self.absorbations = QtWidgets.QPushButton(self.widget)
+        self.absorbations.setObjectName("absorbations")
+        self.gridlayout.addWidget(self.absorbations, 9, 0, 1, 2)
+        self.draw_two_measuring = QtWidgets.QPushButton(self.widget)
+        self.draw_two_measuring.setStyleSheet("")
+        self.draw_two_measuring.setObjectName("draw_two_measuring")
+        self.gridlayout.addWidget(self.draw_two_measuring, 2, 0, 1, 2)
+        self.draw_difference = QtWidgets.QPushButton(self.widget)
+        self.draw_difference.setObjectName("draw_difference")
+        self.gridlayout.addWidget(self.draw_difference, 3, 0, 1, 2)
+        self.gridlayout.setColumnStretch(0, 2)
+        self.gridlayout.setColumnStretch(1, 6)
+        self.verticalLayout_3.addWidget(self.widget)
+        self.verticalLayout.addLayout(self.verticalLayout_3)
         self.widget_2 = QtWidgets.QWidget(Dialog)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
@@ -49,41 +114,6 @@ class Ui_Dialog(object):
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.widget_2)
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.widget = QtWidgets.QWidget(self.widget_2)
-        self.widget.setObjectName("widget")
-        self.gridLayout = QtWidgets.QGridLayout(self.widget)
-        self.gridLayout.setObjectName("gridLayout")
-        self.lineEdit_threshold = QtWidgets.QLineEdit(self.widget)
-        self.lineEdit_threshold.setObjectName("lineEdit_threshold")
-        self.gridLayout.addWidget(self.lineEdit_threshold, 2, 0, 1, 1)
-        self.add_without_gas = QtWidgets.QPushButton(self.widget)
-        self.add_without_gas.setObjectName("add_without_gas")
-        self.gridLayout.addWidget(self.add_without_gas, 1, 0, 1, 1)
-        self.lineEdit_add_without_gas = QtWidgets.QLineEdit(self.widget)
-        self.lineEdit_add_without_gas.setObjectName("lineEdit_add_without_gas")
-        self.gridLayout.addWidget(self.lineEdit_add_without_gas, 1, 1, 1, 1)
-        self.lineEdit_add_gas = QtWidgets.QLineEdit(self.widget)
-        self.lineEdit_add_gas.setObjectName("lineEdit_add_gas")
-        self.gridLayout.addWidget(self.lineEdit_add_gas, 0, 1, 1, 1)
-        self.add_gas = QtWidgets.QPushButton(self.widget)
-        self.add_gas.setStyleSheet("")
-        self.add_gas.setObjectName("add_gas")
-        self.gridLayout.addWidget(self.add_gas, 0, 0, 1, 1)
-        self.draw_two_measuring = QtWidgets.QPushButton(self.widget)
-        self.draw_two_measuring.setObjectName("draw_two_measuring")
-        self.gridLayout.addWidget(self.draw_two_measuring, 4, 0, 1, 2)
-        self.draw_difference = QtWidgets.QPushButton(self.widget)
-        self.draw_difference.setObjectName("draw_difference")
-        self.gridLayout.addWidget(self.draw_difference, 5, 0, 1, 2)
-        self.pushButton_threshold = QtWidgets.QPushButton(self.widget)
-        self.pushButton_threshold.setObjectName("pushButton_threshold")
-        self.gridLayout.addWidget(self.pushButton_threshold, 2, 1, 1, 1)
-        self.absorbations = QtWidgets.QPushButton(self.widget)
-        self.absorbations.setObjectName("absorbations")
-        self.gridLayout.addWidget(self.absorbations, 6, 0, 1, 2)
-        self.gridLayout.setColumnStretch(0, 2)
-        self.gridLayout.setColumnStretch(1, 6)
-        self.horizontalLayout_2.addWidget(self.widget)
         self.verticalLayout.addWidget(self.widget_2)
         self.label_plot_1 = QtWidgets.QLabel(Dialog)
         self.label_plot_1.setObjectName("label_plot_1")
@@ -103,18 +133,18 @@ class Ui_Dialog(object):
         self.verticalLayout.addWidget(self.widget_plot_2)
 
         self.retranslateUi(Dialog)
-        self.pushButton.clicked['bool'].connect(self.widget_2.setVisible) # type: ignore
+        self.pushButton.clicked['bool'].connect(self.widget.setVisible) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.pushButton.setText(_translate("Dialog", "PushButton"))
+        self.pushButton.setText(_translate("Dialog", "Show/Hide drawing menu"))
         self.add_without_gas.setText(_translate("Dialog", "Add file without gas"))
         self.add_gas.setText(_translate("Dialog", "Add file with gas"))
+        self.pushButton_threshold.setText(_translate("Dialog", "Draw Difference graph with threshold line"))
+        self.absorbations.setText(_translate("Dialog", "Find parts above threshold line"))
         self.draw_two_measuring.setText(_translate("Dialog", "Draw graphs of two measuring"))
         self.draw_difference.setText(_translate("Dialog", "Draw graph of difference between two graph"))
-        self.pushButton_threshold.setText(_translate("Dialog", "PushButton"))
-        self.absorbations.setText(_translate("Dialog", "Find parts above threshold line"))
         self.label_plot_1.setText(_translate("Dialog", "Two graphs of two measuring"))
         self.label_plot_2.setText(_translate("Dialog", "Difference between graphs"))
